@@ -941,7 +941,7 @@ const unsigned short* FindRegExpEnd(const unsigned short* p)
 }
 
 
-inline BOOL IsJavascriptQuotBegin(const unsigned short* p)
+inline bool IsJavascriptQuotBegin(const unsigned short* p)
 {
     const unsigned short ch = *p;
     if (ch != _T('"') && ch != _T('\''))
@@ -953,7 +953,7 @@ inline BOOL IsJavascriptQuotBegin(const unsigned short* p)
 
 
 
-inline BOOL IsRegExpBegin(const unsigned short* pBegin, const unsigned short* p)
+inline bool IsRegExpBegin(const unsigned short* pBegin, const unsigned short* p)
 {
     unsigned short ch = *p;
     //
@@ -1061,7 +1061,7 @@ const unsigned short* WizHTMLFindEndOfQuotInBlockScriptSource(const unsigned sho
     //
     return pOld;
 }
-const unsigned short* GetScriptSource(const unsigned short* lpszUnparsed, CString* pstrSource, BOOL bVB)
+const unsigned short* GetScriptSource(const unsigned short* lpszUnparsed, CString* pstrSource, bool bVB)
 {
     const unsigned short* p = lpszUnparsed;
     while (*p)

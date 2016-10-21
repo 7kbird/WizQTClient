@@ -90,8 +90,8 @@ public:
     __int64 getInt64Field(int nField, int nNullValue=0);
     __int64 getInt64Field(const CString& szField, int nNullValue=0);
 
-    BOOL getBoolField(int nField, BOOL bNullValue=FALSE);
-    BOOL getBoolField(const CString& szField, BOOL bNullValue=FALSE);
+    bool getBoolField(int nField, bool bNullValue=FALSE);
+    bool getBoolField(const CString& szField, bool bNullValue=FALSE);
 
     double getFloatField(int nField, double fNullValue=0.0);
     double getFloatField(const CString& szField, double fNullValue=0.0);
@@ -200,7 +200,7 @@ public:
 
     static const char* SQLiteVersion() { return SQLITE_VERSION; }
 	//
-    BOOL IsOpened();
+    bool IsOpened();
 	//
     int updateBlob(const CString& szTableName, const CString& szFieldName, const unsigned char* data, int dataLength, const CString& szWhere);
     int insertBlob(const CString& szSQL, const unsigned char* data, int dataLength);

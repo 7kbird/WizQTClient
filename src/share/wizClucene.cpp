@@ -5,11 +5,6 @@
 #undef _T
 #endif
 
-#include "CLucene.h"
-#include "CLucene/analysis/standard/StandardTokenizer.h"
-#include "CLucene/queryParser/MultiFieldQueryParser.h"
-#include "CLucene/analysis/standard/StandardFilter.h"
-
 #include <map>
 #include <deque>
 #include <fstream>
@@ -17,6 +12,18 @@
 
 #include <QStringList>
 #include <QDebug>
+
+//#define  UNICODE
+#include "CLucene.h"
+#include "CLucene/analysis/standard/StandardTokenizer.h"
+#include "CLucene/queryParser/MultiFieldQueryParser.h"
+#include "CLucene/analysis/standard/StandardFilter.h"
+
+
+#ifdef Q_OS_WIN
+//typedef wchar_t     TCHAR;
+//#define _T(x) L ## x
+#endif
 
 /*
 beacuase lucene default LUCENE_MAX_WORD_LEN = 128 to tokenize field,
@@ -101,8 +108,8 @@ public:
 };
 
 
-const wchar_t* tokenTypeSingle = _T("single");
-const wchar_t* tokenTypeDouble = _T("double");
+const TCHAR tokenTypeSingle[] = _T("single");
+const TCHAR tokenTypeDouble[] = _T("double");
 
 class CJKTokenizer: public lucene::analysis::Tokenizer
 {
@@ -352,21 +359,21 @@ public:
 
 class LanguageBasedAnalyzer: public lucene::analysis::Analyzer
 {
-    TCHAR lang[100];
+    wchar_t lang[100];
     bool stem;
 
 public:
-    LanguageBasedAnalyzer(const TCHAR* language=NULL, bool stem=true)
+    LanguageBasedAnalyzer(const wchar_t* language = NULL, bool stem = true)
     {
         if (language == NULL)
             memset(lang, 0, 100);
         else
-            wcsncpy(lang, language,100);
+            wcsncpy(lang, language,100);    // FIXME: this is 100*wchar_t and previously is 100*char in memset
 
         this->stem = stem;
     }
 
-    void setLanguage(const TCHAR* language)
+    void setLanguage(const wchar_t* language)
     {
         wcsncpy(lang, language, 100);
     }

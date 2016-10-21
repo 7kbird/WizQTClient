@@ -1562,9 +1562,11 @@ void EditorToolBar::on_delegate_showContextMenuRequest(const QPoint& pos)
         case QWebEnginePage::Copy:
             action->setText(QObject::tr("Copy"));
             break;
+#if QT_VERSION >= 0x050700
         case QWebEnginePage::Unselect:
             action->setText(QObject::tr("Unselect"));
             break;
+#endif
         case QWebEnginePage::Back:
         case QWebEnginePage::Forward:
         case QWebEnginePage::Stop:

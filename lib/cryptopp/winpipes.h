@@ -53,7 +53,7 @@ public:
 protected:
 	virtual HANDLE GetHandle() const =0;
 	virtual void HandleError(const char *operation) const;
-	void CheckAndHandleError(const char *operation, BOOL result) const
+	void CheckAndHandleError(const char *operation, bool result) const
 		{assert(result==TRUE || result==FALSE); if (!result) HandleError(operation);}
 };
 

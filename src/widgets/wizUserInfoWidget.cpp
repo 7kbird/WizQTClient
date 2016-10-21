@@ -204,7 +204,7 @@ void CWizUserInfoWidget::on_action_viewNotesOnWeb_triggered()
     QString strToken = Token::token();
     QString strUrl = CommonApiEntry::makeUpUrlFromCommand("service", strToken);
 
-    qDebug() << "open dialog with token ："  << strUrl;
+    qDebug() << "open dialog with token:"  << strUrl;
     QDesktopServices::openUrl(strUrl);
 }
 
@@ -213,7 +213,7 @@ void CWizUserInfoWidget::on_action_mySharedNotes_triggered()
     QString strToken = Token::token();
     QString strUrl = CommonApiEntry::newStandardCommandUrl("my_share", strToken, "");
 
-    qDebug() << "open dialog with token ："  << strUrl;
+    qDebug() << "open dialog with token:"  << strUrl;
     QDesktopServices::openUrl(strUrl);
 }
 

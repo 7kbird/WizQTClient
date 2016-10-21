@@ -1,14 +1,13 @@
 #ifndef WIZLOCALPEER_H
 #define WIZLOCALPEER_H
 
-#include "wizLockedFile.h"
 #include <QLocalServer>
 #include <QLocalSocket>
 #include <QDir>
 #include <QObject>
 #include <QString>
-
-class CWizLockedFile;
+#include <QScopedPointer>
+#include <QLockFile>
 
 class CWizLocalPeer : public QObject
 {
@@ -32,7 +31,7 @@ protected:
     QString id;
     QString socketName;
     QLocalServer* server;
-    CWizLockedFile lockFile;
+    QScopedPointer<QLockFile> lockFile;
 
 };
 

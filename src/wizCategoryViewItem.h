@@ -4,6 +4,7 @@
 #include <QTreeWidgetItem>
 
 #include "share/wizobject.h"
+#include "share/wizDatabase.h"
 
 enum ItemType
 {

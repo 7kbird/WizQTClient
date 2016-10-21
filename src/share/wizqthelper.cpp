@@ -84,11 +84,13 @@ COleDateTime &COleDateTime::operator=(const COleDateTime &other)
 }
 
 
+#ifndef Q_OS_WIN
 int GetTickCount()
 {
     QTime time = QTime::currentTime();
     return time.msecsSinceStartOfDay();
 }
+#endif  // Q_OS_WIN
 
 
 void CString::Trim(char ch)
@@ -600,4 +602,12 @@ QList<WizWindowInfo> WizGetActiveWindows()
     linux_x11 x11;
     return x11.getActiveWindows();
 }
+#elif defined(Q_OS_WIN)
+
+QList<WizWindowInfo> WizGetActiveWindows()
+{
+    linux_x11 x11;
+    return x11.getActiveWindows();
+}
+
 #endif

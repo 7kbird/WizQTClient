@@ -5,7 +5,7 @@
 
 
 template<class T>
-BOOL WizKMObjectArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T>& arrayData2)
+bool WizKMObjectArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T>& arrayData2)
 {
     if (arrayData1.size() != arrayData2.size())
         return FALSE;
@@ -26,7 +26,7 @@ BOOL WizKMObjectArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T
 }
 
 template<class T>
-BOOL WizKMStringArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T>& arrayData2)
+bool WizKMStringArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T>& arrayData2)
 {
     if (arrayData1.size() != arrayData2.size())
         return FALSE;
@@ -61,7 +61,7 @@ BOOL WizKMStringArrayIsEqual(const std::deque<T>& arrayData1, const std::deque<T
 
 struct IWizToolsSearchDocumentsEvents
 {
-    virtual BOOL OnDocuments(const CString& strDocumentID, const CString& strURL) = 0;
+    virtual bool OnDocuments(const CString& strDocumentID, const CString& strURL) = 0;
 };
 
 

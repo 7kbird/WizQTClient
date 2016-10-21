@@ -13,7 +13,7 @@ CWizKMXmlRpcServerBase::CWizKMXmlRpcServerBase(const QString& strUrl, QObject* p
 {
 }
 
-BOOL CWizKMXmlRpcServerBase::GetValueVersion(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, __int64& nVersion)
+bool CWizKMXmlRpcServerBase::GetValueVersion(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, __int64& nVersion)
 {
     CWizKMTokenOnlyParam param(strToken, strKbGUID);
     //
@@ -31,7 +31,7 @@ BOOL CWizKMXmlRpcServerBase::GetValueVersion(const QString& strMethodPrefix, con
     //
     return TRUE;
 }
-BOOL CWizKMXmlRpcServerBase::GetValue(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, QString& strValue, __int64& nVersion)
+bool CWizKMXmlRpcServerBase::GetValue(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, QString& strValue, __int64& nVersion)
 {
     CWizKMTokenOnlyParam param(strToken, strKbGUID);
     //
@@ -49,7 +49,7 @@ BOOL CWizKMXmlRpcServerBase::GetValue(const QString& strMethodPrefix, const QStr
     //
     return TRUE;
 }
-BOOL CWizKMXmlRpcServerBase::SetValue(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, const QString& strValue, __int64& nRetVersion)
+bool CWizKMXmlRpcServerBase::SetValue(const QString& strMethodPrefix, const QString& strToken, const QString& strKbGUID, const QString& strKey, const QString& strValue, __int64& nRetVersion)
 {
     CWizKMTokenOnlyParam param(strToken, strKbGUID);
     //
@@ -95,7 +95,7 @@ void CWizKMAccountsServer::OnXmlRpcError()
 {
 }
 
-BOOL CWizKMAccountsServer::Login(const QString& strUserName, const QString& strPassword, const QString& strType)
+bool CWizKMAccountsServer::Login(const QString& strUserName, const QString& strPassword, const QString& strType)
 {
     if (m_bLogin)
     {
@@ -106,7 +106,7 @@ BOOL CWizKMAccountsServer::Login(const QString& strUserName, const QString& strP
     //
     return m_bLogin;
 }
-BOOL CWizKMAccountsServer::Logout()
+bool CWizKMAccountsServer::Logout()
 {
     if (!m_bLogin)
         return FALSE;
@@ -114,36 +114,36 @@ BOOL CWizKMAccountsServer::Logout()
         return FALSE;
     //
     m_bLogin = FALSE;
-    BOOL bRet = accounts_clientLogout(m_userInfo.strToken);
+    bool bRet = accounts_clientLogout(m_userInfo.strToken);
     m_userInfo.strToken.clear();
     return bRet;
 }
 
 
-BOOL CWizKMAccountsServer::ChangePassword(const QString& strUserName, const QString& strOldPassword, const QString& strNewPassword)
+bool CWizKMAccountsServer::ChangePassword(const QString& strUserName, const QString& strOldPassword, const QString& strNewPassword)
 {
     return accounts_changePassword(strUserName, strOldPassword, strNewPassword);
 }
 
-BOOL CWizKMAccountsServer::ChangeUserId(const QString& strUserName, const QString& strPassword, const QString& strNewUserId)
+bool CWizKMAccountsServer::ChangeUserId(const QString& strUserName, const QString& strPassword, const QString& strNewUserId)
 {
     return accounts_changeUserId(strUserName, strPassword, strNewUserId);
 }
 
-BOOL CWizKMAccountsServer::CreateAccount(const QString& strUserName, const QString& strPassword, const QString& strInviteCode, const QString& strCaptchaID, const QString& strCaptcha)
+bool CWizKMAccountsServer::CreateAccount(const QString& strUserName, const QString& strPassword, const QString& strInviteCode, const QString& strCaptchaID, const QString& strCaptcha)
 {
     return accounts_createAccount(strUserName, strPassword, strInviteCode, strCaptchaID, strCaptcha);
 }
 
-BOOL CWizKMAccountsServer::GetToken(const QString& strUserName, const QString& strPassword, QString& strToken)
+bool CWizKMAccountsServer::GetToken(const QString& strUserName, const QString& strPassword, QString& strToken)
 {
     return accounts_getToken(strUserName, strPassword, strToken);
 }
-BOOL CWizKMAccountsServer::GetCert(const QString& strUserName, const QString& strPassword, QString& strN, QString& stre, QString& strd, QString& strHint)
+bool CWizKMAccountsServer::GetCert(const QString& strUserName, const QString& strPassword, QString& strN, QString& stre, QString& strd, QString& strHint)
 {
     return accounts_getCert(strUserName, strPassword, strN, stre, strd, strHint);
 }
-BOOL CWizKMAccountsServer::SetCert(const QString& strUserName, const QString& strPassword, const QString& strN, const QString& stre, const QString& strd, const QString& strHint)
+bool CWizKMAccountsServer::SetCert(const QString& strUserName, const QString& strPassword, const QString& strN, const QString& stre, const QString& strd, const QString& strHint)
 {
     return accounts_setCert(strUserName, strPassword, strN, stre, strd, strHint);
 }
@@ -173,31 +173,31 @@ QString CWizKMAccountsServer::GetKbGUID()
     return m_userInfo.strKbGUID;
 }
 
-BOOL CWizKMAccountsServer::ShareSNS(const QString& strToken, const QString& strSNS, const QString& strComment, const QString& strURL, const QString& strDocumentGUID)
+bool CWizKMAccountsServer::ShareSNS(const QString& strToken, const QString& strSNS, const QString& strComment, const QString& strURL, const QString& strDocumentGUID)
 {
     return document_shareSNS(strToken, strSNS, strComment, strURL, strDocumentGUID);
 }
 
-BOOL CWizKMAccountsServer::GetGroupList(CWizGroupDataArray& arrayGroup)
+bool CWizKMAccountsServer::GetGroupList(CWizGroupDataArray& arrayGroup)
 {
     return accounts_getGroupList(arrayGroup);
 }
 
-BOOL CWizKMAccountsServer::GetBizList(CWizBizDataArray& arrayBiz)
+bool CWizKMAccountsServer::GetBizList(CWizBizDataArray& arrayBiz)
 {
     return accounts_getBizList(arrayBiz);
 }
 
-BOOL CWizKMAccountsServer::CreateTempGroup(const QString& strEmails, const QString& strAccessControl, const QString& strSubject, const QString& strEmailText, WIZGROUPDATA& group)
+bool CWizKMAccountsServer::CreateTempGroup(const QString& strEmails, const QString& strAccessControl, const QString& strSubject, const QString& strEmailText, WIZGROUPDATA& group)
 {
     return accounts_createTempGroupKb(strEmails, strAccessControl, strSubject, strEmailText, group);
 }
 
-BOOL CWizKMAccountsServer::KeepAlive(const QString& strToken)
+bool CWizKMAccountsServer::KeepAlive(const QString& strToken)
 {
     return accounts_keepAlive(strToken);
 }
-BOOL CWizKMAccountsServer::GetMessages(__int64 nVersion, CWizUserMessageDataArray& arrayRet)
+bool CWizKMAccountsServer::GetMessages(__int64 nVersion, CWizUserMessageDataArray& arrayRet)
 {
     int nCountPerPage = 100;
     //
@@ -231,7 +231,7 @@ BOOL CWizKMAccountsServer::GetMessages(__int64 nVersion, CWizUserMessageDataArra
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::SetMessageReadStatus(const QString& strMessageIDs, int nStatus)
+bool CWizKMAccountsServer::SetMessageReadStatus(const QString& strMessageIDs, int nStatus)
 {
     CWizKMBaseParam param;
 
@@ -257,15 +257,15 @@ bool CWizKMAccountsServer::SetMessageDeleteStatus(const QString& strMessageIDs, 
     return deleteResource(strUrl);
 }
 
-BOOL CWizKMAccountsServer::GetValueVersion(const QString& strKey, __int64& nVersion)
+bool CWizKMAccountsServer::GetValueVersion(const QString& strKey, __int64& nVersion)
 {
     return CWizKMXmlRpcServerBase::GetValueVersion(_T("accounts"), GetToken(), GetKbGUID(), strKey, nVersion);
 }
-BOOL CWizKMAccountsServer::GetValue(const QString& strKey, QString& strValue, __int64& nVersion)
+bool CWizKMAccountsServer::GetValue(const QString& strKey, QString& strValue, __int64& nVersion)
 {
     return CWizKMXmlRpcServerBase::GetValue(_T("accounts"), GetToken(), GetKbGUID(), strKey, strValue, nVersion);
 }
-BOOL CWizKMAccountsServer::SetValue(const QString& strKey, const QString& strValue, __int64& nRetVersion)
+bool CWizKMAccountsServer::SetValue(const QString& strKey, const QString& strValue, __int64& nRetVersion)
 {
     return CWizKMXmlRpcServerBase::SetValue(_T("accounts"), GetToken(), GetKbGUID(), strKey, strValue, nRetVersion);
 }
@@ -283,7 +283,7 @@ QString CWizKMAccountsServer::MakeXmlRpcPassword(const QString& strPassword)
 
 
 
-BOOL CWizKMAccountsServer::accounts_clientLogin(const QString& strUserName, const QString& strPassword, const QString& strType, WIZUSERINFO& ret)
+bool CWizKMAccountsServer::accounts_clientLogin(const QString& strUserName, const QString& strPassword, const QString& strType, WIZUSERINFO& ret)
 {
     DEBUG_TOLOG(_T("Start Login"));
     //
@@ -305,7 +305,7 @@ BOOL CWizKMAccountsServer::accounts_clientLogin(const QString& strUserName, cons
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::accounts_createAccount(const QString& strUserName, const QString& strPassword,
+bool CWizKMAccountsServer::accounts_createAccount(const QString& strUserName, const QString& strPassword,
                                                   const QString& strInviteCode, const QString& strCaptchaID, const QString& strCaptcha)
 {
     CWizKMBaseParam param;
@@ -330,7 +330,7 @@ BOOL CWizKMAccountsServer::accounts_createAccount(const QString& strUserName, co
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::accounts_clientLogout(const QString& strToken)
+bool CWizKMAccountsServer::accounts_clientLogout(const QString& strToken)
 {
     CWizKMTokenOnlyParam param(strToken, GetKbGUID());
     //
@@ -343,7 +343,7 @@ BOOL CWizKMAccountsServer::accounts_clientLogout(const QString& strToken)
     //
     return TRUE;
 }
-BOOL CWizKMAccountsServer::accounts_keepAlive(const QString& strToken)
+bool CWizKMAccountsServer::accounts_keepAlive(const QString& strToken)
 {
     qDebug() << "keepAlive: " << strToken << "kb: " << GetKbGUID();
     CWizKMTokenOnlyParam param(strToken, GetKbGUID());
@@ -360,7 +360,7 @@ BOOL CWizKMAccountsServer::accounts_keepAlive(const QString& strToken)
 
 
 
-BOOL CWizKMAccountsServer::accounts_changePassword(const QString& strUserName, const QString& strOldPassword, const QString& strNewPassword)
+bool CWizKMAccountsServer::accounts_changePassword(const QString& strUserName, const QString& strOldPassword, const QString& strNewPassword)
 {
     CWizKMBaseParam param;
 
@@ -378,7 +378,7 @@ BOOL CWizKMAccountsServer::accounts_changePassword(const QString& strUserName, c
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::accounts_changeUserId(const QString& strUserName, const QString& strPassword, const QString& strNewUserId)
+bool CWizKMAccountsServer::accounts_changeUserId(const QString& strUserName, const QString& strPassword, const QString& strNewUserId)
 {
     CWizKMBaseParam param;
 
@@ -395,7 +395,7 @@ BOOL CWizKMAccountsServer::accounts_changeUserId(const QString& strUserName, con
     //
     return TRUE;
 }
-BOOL CWizKMAccountsServer::accounts_getToken(const QString& strUserName, const QString& strPassword, QString& strToken)
+bool CWizKMAccountsServer::accounts_getToken(const QString& strUserName, const QString& strPassword, QString& strToken)
 {
     CWizKMBaseParam param;
 
@@ -412,7 +412,7 @@ BOOL CWizKMAccountsServer::accounts_getToken(const QString& strUserName, const Q
 
     return TRUE;
 }
-BOOL CWizKMAccountsServer::accounts_getCert(const QString& strUserName, const QString& strPassword, QString& strN, QString& stre, QString& strd, QString& strHint)
+bool CWizKMAccountsServer::accounts_getCert(const QString& strUserName, const QString& strPassword, QString& strN, QString& stre, QString& strd, QString& strHint)
 {
     CWizKMBaseParam param;
 
@@ -428,7 +428,7 @@ BOOL CWizKMAccountsServer::accounts_getCert(const QString& strUserName, const QS
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::accounts_setCert(const QString& strUserName, const QString& strPassword, const QString& strN, const QString& stre, const QString& strd, const QString& strHint)
+bool CWizKMAccountsServer::accounts_setCert(const QString& strUserName, const QString& strPassword, const QString& strN, const QString& stre, const QString& strd, const QString& strHint)
 {
     CWizKMBaseParam param;
 
@@ -448,7 +448,7 @@ BOOL CWizKMAccountsServer::accounts_setCert(const QString& strUserName, const QS
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::document_shareSNS(const QString& strToken, const QString& strSNS, const QString& strComment, const QString& strURL, const QString& strDocumentGUID)
+bool CWizKMAccountsServer::document_shareSNS(const QString& strToken, const QString& strSNS, const QString& strComment, const QString& strURL, const QString& strDocumentGUID)
 {
     CWizKMTokenOnlyParam param(strToken, GetKbGUID());
     param.AddString(_T("sns_list"), strSNS);
@@ -467,7 +467,7 @@ BOOL CWizKMAccountsServer::document_shareSNS(const QString& strToken, const QStr
 }
 
 
-BOOL CWizKMAccountsServer::accounts_getGroupList(CWizGroupDataArray& arrayGroup)
+bool CWizKMAccountsServer::accounts_getGroupList(CWizGroupDataArray& arrayGroup)
 {
     CWizKMTokenOnlyParam param(GetToken(), GetKbGUID());    
     //
@@ -501,7 +501,7 @@ bool CWizKMAccountsServer::accounts_getBizList(CWizBizDataArray& arrayBiz)
     return TRUE;
 }
 
-BOOL CWizKMAccountsServer::accounts_createTempGroupKb(const QString& strEmails, const QString& strAccessControl, const QString& strSubject, const QString& strEmailText, WIZGROUPDATA& group)
+bool CWizKMAccountsServer::accounts_createTempGroupKb(const QString& strEmails, const QString& strAccessControl, const QString& strSubject, const QString& strEmailText, WIZGROUPDATA& group)
 {
     CWizKMTokenOnlyParam param(GetToken(), GetKbGUID());
     param.AddString(_T("kb_name"), strSubject);
@@ -527,7 +527,7 @@ BOOL CWizKMAccountsServer::accounts_createTempGroupKb(const QString& strEmails, 
 
 
 
-BOOL CWizKMAccountsServer::accounts_getMessagesByXmlrpc(int nCountPerPage, __int64 nVersion, CWizUserMessageDataArray& arrayMessage)
+bool CWizKMAccountsServer::accounts_getMessagesByXmlrpc(int nCountPerPage, __int64 nVersion, CWizUserMessageDataArray& arrayMessage)
 {
     CWizKMBaseParam param;
 
@@ -661,7 +661,7 @@ int CWizKMDatabaseServer::GetCountPerPage()
 }
 
 //
-BOOL CWizKMDatabaseServer::wiz_getInfo()
+bool CWizKMDatabaseServer::wiz_getInfo()
 {
     CWizKMTokenOnlyParam param(m_userInfo.strToken, m_userInfo.strKbGUID);
     //
@@ -676,11 +676,11 @@ BOOL CWizKMDatabaseServer::wiz_getInfo()
 
 struct WIZOBJECTVERSION_XMLRPC : public WIZOBJECTVERSION
 {
-    BOOL LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+    bool LoadFromXmlRpc(CWizXmlRpcStructValue& data)
     {
         QString strType;
         //
-        BOOL bRet = data.GetInt64(_T("document_version"), nDocumentVersion)
+        bool bRet = data.GetInt64(_T("document_version"), nDocumentVersion)
             && data.GetInt64(_T("tag_version"), nTagVersion)
             && data.GetInt64(_T("style_version"), nStyleVersion)
             && data.GetInt64(_T("attachment_version"), nAttachmentVersion)
@@ -690,7 +690,7 @@ struct WIZOBJECTVERSION_XMLRPC : public WIZOBJECTVERSION
     }
 };
 
-BOOL CWizKMDatabaseServer::wiz_getVersion(WIZOBJECTVERSION& version, BOOL bAuto)
+bool CWizKMDatabaseServer::wiz_getVersion(WIZOBJECTVERSION& version, bool bAuto)
 {
     CWizKMTokenOnlyParam param(m_userInfo.strToken, m_userInfo.strKbGUID);
     //
@@ -709,20 +709,20 @@ BOOL CWizKMDatabaseServer::wiz_getVersion(WIZOBJECTVERSION& version, BOOL bAuto)
 }
 //
 
-BOOL CWizKMDatabaseServer::GetValueVersion(const QString& strKey, __int64& nVersion)
+bool CWizKMDatabaseServer::GetValueVersion(const QString& strKey, __int64& nVersion)
 {
     return CWizKMXmlRpcServerBase::GetValueVersion(_T("kb"), GetToken(), GetKbGUID(), strKey, nVersion);
 }
-BOOL CWizKMDatabaseServer::GetValue(const QString& strKey, QString& strValue, __int64& nVersion)
+bool CWizKMDatabaseServer::GetValue(const QString& strKey, QString& strValue, __int64& nVersion)
 {
     return CWizKMXmlRpcServerBase::GetValue(_T("kb"), GetToken(), GetKbGUID(), strKey, strValue, nVersion);
 }
-BOOL CWizKMDatabaseServer::SetValue(const QString& strKey, const QString& strValue, __int64& nRetVersion)
+bool CWizKMDatabaseServer::SetValue(const QString& strKey, const QString& strValue, __int64& nRetVersion)
 {
     return CWizKMXmlRpcServerBase::SetValue(_T("kb"), GetToken(), GetKbGUID(), strKey, strValue, nRetVersion);
 }
 
-BOOL CWizKMDatabaseServer::document_downloadData(const QString& strDocumentGUID, WIZDOCUMENTDATAEX& ret)
+bool CWizKMDatabaseServer::document_downloadData(const QString& strDocumentGUID, WIZDOCUMENTDATAEX& ret)
 {
     if (!data_download(ret.strGUID, _T("document"), ret.arrayData, ret.strTitle))
     {
@@ -776,7 +776,7 @@ struct CWizKMDocumentPostDataParam
 };
 
 
-BOOL CWizKMDatabaseServer::attachment_downloadData(const QString& strAttachmentGUID, WIZDOCUMENTATTACHMENTDATAEX& ret)
+bool CWizKMDatabaseServer::attachment_downloadData(const QString& strAttachmentGUID, WIZDOCUMENTATTACHMENTDATAEX& ret)
 {
     ATLASSERT(!ret.arrayData.isEmpty());
     if (!ret.arrayData.isEmpty())
@@ -851,7 +851,7 @@ struct WIZKMDATAPART
         , nPartSize(0)
     {
     }
-    BOOL LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+    bool LoadFromXmlRpc(CWizXmlRpcStructValue& data)
     {
         data.GetInt64(_T("obj_size"), nObjectSize);
         data.GetInt(_T("eof"), bEOF);
@@ -861,7 +861,7 @@ struct WIZKMDATAPART
     }
 };
 
-BOOL CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QString& strObjectType, int pos, int size, QByteArray& stream, int& nAllSize, BOOL& bEOF)
+bool CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QString& strObjectType, int pos, int size, QByteArray& stream, int& nAllSize, bool& bEOF)
 {
     CWizKMDataDownloadParam param(m_userInfo.strToken, m_userInfo.strKbGUID, strObjectGUID, strObjectType, pos, size);
     //
@@ -916,7 +916,7 @@ struct CWizKMDataUploadParam
 
 
 
-BOOL CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QString& strObjectType, const QString& strObjectMD5, int allSize, int partCount, int partIndex, int partSize, const QByteArray& stream)
+bool CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QString& strObjectType, const QString& strObjectMD5, int allSize, int partCount, int partIndex, int partSize, const QByteArray& stream)
 {
     __int64 nStreamSize = stream.size();
     if (partSize != (int)nStreamSize)
@@ -937,7 +937,7 @@ BOOL CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QStri
 }
 
 
-BOOL CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QString& strObjectType, QByteArray& stream, const QString& strDisplayName)
+bool CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QString& strObjectType, QByteArray& stream, const QString& strDisplayName)
 {
     stream.clear();
     //
@@ -947,7 +947,7 @@ BOOL CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QSt
     {
         int partSize = 500 * 1000;
         //
-        BOOL bEOF = FALSE;
+        bool bEOF = FALSE;
         if (!data_download(strObjectGUID, strObjectType, startPos, partSize, stream, nAllSize, bEOF))
         {
             TOLOG(WizFormatString1(_T("Failed to download object part data: %1"), strDisplayName));
@@ -973,7 +973,7 @@ BOOL CWizKMDatabaseServer::data_download(const QString& strObjectGUID, const QSt
     //
     return TRUE;
 }
-BOOL CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QString& strObjectType, const QByteArray& stream, const QString& strObjMD5, const QString& strDisplayName)
+bool CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QString& strObjectType, const QByteArray& stream, const QString& strObjMD5, const QString& strDisplayName)
 {
     __int64 nStreamSize = stream.size();
     if (0 == nStreamSize)
@@ -1024,7 +1024,7 @@ BOOL CWizKMDatabaseServer::data_upload(const QString& strObjectGUID, const QStri
 
 //////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL CWizKMDatabaseServer::document_postData(const WIZDOCUMENTDATAEX& data, bool bWithDocumentData, __int64& nServerVersion)
+bool CWizKMDatabaseServer::document_postData(const WIZDOCUMENTDATAEX& data, bool bWithDocumentData, __int64& nServerVersion)
 {
     if (!data.arrayData.isEmpty() && data.arrayData.size() > m_kbInfo.GetMaxFileSize())
     {
@@ -1066,7 +1066,7 @@ BOOL CWizKMDatabaseServer::document_postData(const WIZDOCUMENTDATAEX& data, bool
 }
 
 
-BOOL CWizKMDatabaseServer::attachment_postData(WIZDOCUMENTATTACHMENTDATAEX& data, __int64& nServerVersion)
+bool CWizKMDatabaseServer::attachment_postData(WIZDOCUMENTATTACHMENTDATAEX& data, __int64& nServerVersion)
 {
     if (data.arrayData.size() > m_kbInfo.GetMaxFileSize())
     {
@@ -1100,12 +1100,12 @@ BOOL CWizKMDatabaseServer::attachment_postData(WIZDOCUMENTATTACHMENTDATAEX& data
 }
 
 
-BOOL CWizKMDatabaseServer::document_getListByGuids(const CWizStdStringArray& arrayDocumentGUID, std::deque<WIZDOCUMENTDATAEX>& arrayRet)
+bool CWizKMDatabaseServer::document_getListByGuids(const CWizStdStringArray& arrayDocumentGUID, std::deque<WIZDOCUMENTDATAEX>& arrayRet)
 {
    return downloadList<WIZDOCUMENTDATAEX, WIZDOCUMENTDATAEX>(_T("document.downloadInfoList"), _T("document_guids"), arrayDocumentGUID, arrayRet);
 }
 
-BOOL CWizKMDatabaseServer::document_getInfo(const QString& strDocumentGuid, WIZDOCUMENTDATAEX& doc)
+bool CWizKMDatabaseServer::document_getInfo(const QString& strDocumentGuid, WIZDOCUMENTDATAEX& doc)
 {
     CWizStdStringArray guids;
     guids.push_back(strDocumentGuid);
@@ -1122,45 +1122,45 @@ BOOL CWizKMDatabaseServer::document_getInfo(const QString& strDocumentGuid, WIZD
 }
 
 
-BOOL CWizKMDatabaseServer::document_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDOCUMENTDATAEX>& arrayRet)
+bool CWizKMDatabaseServer::document_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDOCUMENTDATAEX>& arrayRet)
 {
     return getList<WIZDOCUMENTDATAEX, WIZDOCUMENTDATAEX>(_T("document.getSimpleList"), nCountPerPage, nVersion, arrayRet);
 }
 
-BOOL CWizKMDatabaseServer::attachment_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDOCUMENTATTACHMENTDATAEX>& arrayRet)
+bool CWizKMDatabaseServer::attachment_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDOCUMENTATTACHMENTDATAEX>& arrayRet)
 {
     return getList<WIZDOCUMENTATTACHMENTDATAEX, WIZDOCUMENTATTACHMENTDATAEX>(_T("attachment.getList"), nCountPerPage, nVersion, arrayRet);
 }
 
-BOOL CWizKMDatabaseServer::tag_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZTAGDATA>& arrayRet)
+bool CWizKMDatabaseServer::tag_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZTAGDATA>& arrayRet)
 {
     return getList<WIZTAGDATA, WIZTAGDATA>(_T("tag.getList"), nCountPerPage, nVersion, arrayRet);
 }
 
-BOOL CWizKMDatabaseServer::style_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZSTYLEDATA>& arrayRet)
+bool CWizKMDatabaseServer::style_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZSTYLEDATA>& arrayRet)
 {
     return getList<WIZSTYLEDATA, WIZSTYLEDATA>(_T("style.getList"), nCountPerPage, nVersion, arrayRet);
 }
 
 
-BOOL CWizKMDatabaseServer::deleted_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDELETEDGUIDDATA>& arrayRet)
+bool CWizKMDatabaseServer::deleted_getList(int nCountPerPage, __int64 nVersion, std::deque<WIZDELETEDGUIDDATA>& arrayRet)
 {
     return getList<WIZDELETEDGUIDDATA, WIZDELETEDGUIDDATA>(_T("deleted.getList"), nCountPerPage, nVersion, arrayRet);
 }
-BOOL CWizKMDatabaseServer::tag_postList(std::deque<WIZTAGDATA>& arrayTag)
+bool CWizKMDatabaseServer::tag_postList(std::deque<WIZTAGDATA>& arrayTag)
 {
     return postList<WIZTAGDATA, WIZTAGDATA>(_T("tag.postList"), _T("tags"), arrayTag);
 }
-BOOL CWizKMDatabaseServer::style_postList(std::deque<WIZSTYLEDATA>& arrayStyle)
+bool CWizKMDatabaseServer::style_postList(std::deque<WIZSTYLEDATA>& arrayStyle)
 {
     return postList<WIZSTYLEDATA, WIZSTYLEDATA>(_T("style.postList"), _T("styles"), arrayStyle);
 }
-BOOL CWizKMDatabaseServer::deleted_postList(std::deque<WIZDELETEDGUIDDATA>& arrayDeletedGUID)
+bool CWizKMDatabaseServer::deleted_postList(std::deque<WIZDELETEDGUIDDATA>& arrayDeletedGUID)
 {
     return postList<WIZDELETEDGUIDDATA, WIZDELETEDGUIDDATA>(_T("deleted.postList"), _T("deleteds"), arrayDeletedGUID);
 }
 
-BOOL CWizKMDatabaseServer::category_getAll(QString& str)
+bool CWizKMDatabaseServer::category_getAll(QString& str)
 {
     CWizKMTokenOnlyParam param(m_userInfo.strToken, m_userInfo.strKbGUID);
     //

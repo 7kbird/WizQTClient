@@ -8,6 +8,9 @@
 #  include <qt_windows.h>
 #  include <commctrl.h>
 #  include <objbase.h>
+#    if QT_VERSION >= 0x050000
+#      include <QtWinExtras>
+#    endif
 
 #ifndef SHGFI_ADDOVERLAYS
 #  define SHGFI_ADDOVERLAYS 0x000000020
@@ -47,12 +50,16 @@ QIcon CWizFileIconProvider::icon(const QString& strFilePath) const
         //
         SHFILEINFO info;
         memset(&info, 0, sizeof(SHFILEINFO));
-        unsigned long val = SHGetFileInfo((const wchar_t *)QDir::toNativeSeparators(strFileName).utf16(), 0, &info,
+        unsigned long val = SHGetFileInfo((const wchar_t *)QDir::toNativeSeparators(strFilePath).utf16(), 0, &info,
                             sizeof(SHFILEINFO), flags);
         //
         if (val && info.hIcon)
         {
+#if QT_VERSION >= 0x050000
+            QPixmap pixmap = QtWin::fromHICON(info.hIcon);
+#else
             QPixmap pixmap = QPixmap::fromWinHICON(info.hIcon);
+#endif
             if (!pixmap.isNull())
             {
                 retIcon.addPixmap(pixmap);

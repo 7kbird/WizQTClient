@@ -32,19 +32,19 @@ public:
     //
     virtual void OnXmlRpcError() {}
 protected:
-    BOOL GetReturnValueInStringMap(const QString& strMethodName, std::map<QString, QString>& mapRet, const QString& strName, QString& strValue);
+    bool GetReturnValueInStringMap(const QString& strMethodName, std::map<QString, QString>& mapRet, const QString& strName, QString& strValue);
     //
     bool xmlRpcCall(const QString& strMethodName, CWizXmlRpcResult& result, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, CWizXmlRpcResult& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, std::map<QString, QString>& mapRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
-    BOOL Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, const QString& strRetName4, QString& strRetValue4, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, CWizXmlRpcResult& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, std::map<QString, QString>& mapRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
+    bool Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, const QString& strRetName4, QString& strRetValue4, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL);
     //
     template <class TData>
-    BOOL Call(const QString& strMethodName, TData& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL)
+    bool Call(const QString& strMethodName, TData& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL)
     {
         CWizXmlRpcResult result;
         if (!Call(strMethodName, result, pParam1, pParam2, pParam3, pParam4))
@@ -63,7 +63,7 @@ protected:
         return pValue->ToData<TData>(ret);
     }
     template <class TData>
-    BOOL Call(const QString& strMethodName, std::deque<TData>& arrayRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL)
+    bool Call(const QString& strMethodName, std::deque<TData>& arrayRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 = NULL, CWizXmlRpcValue* pParam3 = NULL, CWizXmlRpcValue* pParam4 = NULL)
     {
         CWizXmlRpcResult result;
         if (!Call(strMethodName, result, pParam1, pParam2, pParam3, pParam4))

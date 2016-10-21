@@ -260,13 +260,13 @@ __int64 CppSQLite3Query::getInt64Field(const CString& szField, int nNullValue/*=
 }
 
 
-BOOL CppSQLite3Query::getBoolField(int nField, BOOL bNullValue/*=FALSE*/)
+bool CppSQLite3Query::getBoolField(int nField, bool bNullValue/*=FALSE*/)
 {
 	int nDefaultValue = bNullValue ? 1 : 0;
 	//
     return getIntField(nField, nDefaultValue) ? TRUE : FALSE;
 }
-BOOL CppSQLite3Query::getBoolField(const CString& szField, BOOL bNullValue/*=FALSE*/)
+bool CppSQLite3Query::getBoolField(const CString& szField, bool bNullValue/*=FALSE*/)
 {
 	int nField = fieldIndex(szField);
     return getBoolField(nField, bNullValue);
@@ -868,7 +868,7 @@ void CppSQLite3DB::setBusyTimeout(int nMillisecs)
 	sqlite3_busy_timeout(mpDB, mnBusyTimeoutMs);
 }
 
-BOOL CppSQLite3DB::IsOpened()
+bool CppSQLite3DB::IsOpened()
 {
 	try
 	{

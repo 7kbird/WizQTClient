@@ -1810,10 +1810,11 @@ bool CWizDatabase::getDownloadAttachmentsAtSync()
     return GetMetaDef("QT_WIZNOTE", "SyncDownloadAttachment", "0").toInt() != 0;
 }
 
-class CompareString
+
+class StringInCompare
 {
 public:
-    CompareString(const QString& text): m_text(text){}
+    StringInCompare(const QString& text): m_text(text){}
 
     bool operator() (const QString& folder) const
     {
@@ -1829,14 +1830,14 @@ bool CWizDatabase::isFolderExists(const QString& folder)
     GetAllLocations(arrayFolder);
 
     CWizStdStringArray::const_iterator pos = std::find_if(arrayFolder.begin(), arrayFolder.end(),
-                                                CompareString(folder));
+                                                StringInCompare(folder));
 
     if (pos != arrayFolder.end())
         return true;
 
     CWizStdStringArray arrayExtra;
     GetExtraFolder(arrayExtra);
-    pos = std::find_if(arrayExtra.begin(), arrayExtra.end(), CompareString(folder));
+    pos = std::find_if(arrayExtra.begin(), arrayExtra.end(), StringInCompare(folder));
 
     return pos != arrayExtra.end();
 }
@@ -3157,7 +3158,7 @@ bool CWizDatabase::DeleteObject(const QString& strGUID, const QString& strType, 
 
     if (!IsGroup())
     {
-        BOOL objectExists = FALSE;
+        bool objectExists = FALSE;
         if (-1 == GetObjectLocalVersionEx(strGUID, strType, objectExists))
         {
             if (objectExists)

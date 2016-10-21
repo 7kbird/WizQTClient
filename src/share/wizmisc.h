@@ -51,8 +51,8 @@ time_t WizTimeGetTimeT(const COleDateTime& t);
 
 CString WizIntToStr(int n);
 
-BOOL WizSplitTextToArray(const CString& strText, QChar ch, CWizStdStringArray& arrayResult);
-BOOL WizSplitTextToArray(CString strText, const CString& strSplitterText, BOOL bMatchCase, CWizStdStringArray& arrayResult);
+bool WizSplitTextToArray(const CString& strText, QChar ch, CWizStdStringArray& arrayResult);
+bool WizSplitTextToArray(CString strText, const CString& strSplitterText, bool bMatchCase, CWizStdStringArray& arrayResult);
 void WizStringArrayToText(const CWizStdStringArray& arrayText, CString& strText, const CString& strSplitter);
 int WizFindInArray(const CWizStdStringArray& arrayText, const CString& strFind);
 int WizFindInArrayNoCase(const CWizStdStringArray& arrayText, const CString& strFind);
@@ -67,7 +67,7 @@ CString WizStringArrayGetValue(const CWizStdStringArray& arrayText, const CStrin
 void WizCommandLineToStringArray(const CString& commandLine, CWizStdStringArray& arrayLine);
 CString WizGetCommandLineValue(const CString& strCommandLine, const CString& strKey);
 
-BOOL WizStringSimpleSplit(const CString& str, char ch, CString& strLeft, CString& strRight);
+bool WizStringSimpleSplit(const CString& str, char ch, CString& strLeft, CString& strRight);
 
 CString WizDateToLocalString(const COleDateTime& t);
 
@@ -97,7 +97,7 @@ void WizEnumFiles(const QString& strPath, const QString& strExts, CWizStdStringA
 void WizEnumFolders(const QString& strPath, CWizStdStringArray& arrayFolders, UINT uFlags);
 QString WizFolderNameByPath(const QString& strPath);
 
-BOOL WizCopyFile(const CString& strSrcFileName, const CString& strDestFileName, BOOL bFailIfExists);
+bool WizCopyFile(const CString& strSrcFileName, const CString& strDestFileName, bool bFailIfExists);
 bool WizCopyFolder(const QString& strSrcDir, const QString& strDestDir, bool bCoverFileIfExist);
 void WizGetNextFileName(CString& strFileName);
 
@@ -115,7 +115,7 @@ bool WizSaveUnicodeTextToUtf8File(const QString& strFileName, const QByteArray& 
 bool WizSaveUnicodeTextToUtf8File(const QString& strFileName, const QString& strText, bool addBom);
 
 CString WizDateTimeToIso8601String(const COleDateTime& t);
-BOOL WizIso8601StringToDateTime(CString str, COleDateTime& t, CString& strError);
+bool WizIso8601StringToDateTime(CString str, COleDateTime& t, CString& strError);
 CString WizDateTimeToString(const COleDateTime& t);
 CString WizStringToSQL(const CString& str);
 CString WizTimeToSQL(const QDateTime &t);
@@ -131,8 +131,8 @@ CString WizInt64ToStr(__int64 n);
 
 CString WizGenGUIDLowerCaseLetterOnly();
 
-BOOL WizBase64Encode(const QByteArray& arrayData, QString& str);
-BOOL WizBase64Decode(const QString& str, QByteArray& arrayData);
+bool WizBase64Encode(const QByteArray& arrayData, QString& str);
+bool WizBase64Decode(const QString& str, QByteArray& arrayData);
 
 CString WizStringToBase64(const CString& strSource);
 CString WizStringFromBase64(const CString& strBase64);
@@ -164,7 +164,7 @@ void WizHTMLAppendTextInHead(const QString& strText, QString& strHTML);
 
 void WizDeleteFolder(const CString& strPath);
 void WizDeleteFile(const CString& strFileName);
-BOOL WizDeleteAllFilesInFolder(const CString& strPath);
+bool WizDeleteAllFilesInFolder(const CString& strPath);
 
 bool WizImage2Html(const QString& strImageFile, QString& strHtml, QString strDestImagePath);
 
@@ -172,7 +172,7 @@ QString WizGetImageHtmlLabelWithLink(const QString& imageFile, const QString& li
 QString WizGetImageHtmlLabelWithLink(const QString& imageFile, const QSize& imgSize, const QString& linkHref);
 QString WizStr2Title(const QString& str);
 
-BOOL WizIsValidFileNameNoPath(const CString& strFileName);
+bool WizIsValidFileNameNoPath(const CString& strFileName);
 void WizMakeValidFileNameNoPath(CString& strFileName);
 void WizMakeValidFileNameNoPathLimitLength(CString& strFileName, int nMaxTitleLength);
 void WizMakeValidFileNameNoPathLimitFullNameLength(CString& strFileName, int nMaxFullNameLength);
@@ -250,7 +250,7 @@ private:
     int m_nSize;
 public:
     BYTE* GetBuffer();
-    BOOL SetNewSize(int nNewSize);
+    bool SetNewSize(int nNewSize);
 };
 
 

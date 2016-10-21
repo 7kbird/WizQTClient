@@ -133,7 +133,7 @@ void CWizAnalyzer::LogFirstAction(const CString& strActionName)
     if (0 == WizStrStrI_Pos(strActionName, _T("Init")))
 		return;
 	//
-	static BOOL logged = FALSE;
+	static bool logged = FALSE;
 	if (logged)
 		return;
 	//

@@ -17,7 +17,7 @@ QString CWizSettings::GetString(const QString& strSection, const QString& strKey
     return v.toString();
 }
 
-BOOL CWizSettings::SetString(const QString& strSection, const QString& strKey, const QString& str)
+bool CWizSettings::SetString(const QString& strSection, const QString& strKey, const QString& str)
 {
     setValue(strSection + "/" + strKey, str);
     return TRUE;
@@ -33,17 +33,17 @@ int CWizSettings::GetInt(const QString& strSection, const QString& strKey, int n
     return n;
 }
 
-BOOL CWizSettings::SetInt(const QString& strSection, const QString& strKey, int val)
+bool CWizSettings::SetInt(const QString& strSection, const QString& strKey, int val)
 {
     return SetString(strSection, strKey, WizIntToStr(val));
 }
 
-BOOL CWizSettings::GetBool(const QString& strSection, const QString& strKey, bool def /* = false */)
+bool CWizSettings::GetBool(const QString& strSection, const QString& strKey, bool def /* = false */)
 {
     return GetInt(strSection, strKey, def ? 1 : 0) != 0;
 }
 
-BOOL CWizSettings::SetBool(const QString& strSection, const QString& strKey, bool val)
+bool CWizSettings::SetBool(const QString& strSection, const QString& strKey, bool val)
 {
     return SetInt(strSection, strKey, val ? 1 : 0);
 }
@@ -64,7 +64,7 @@ QString CWizSettings::GetEncryptedString(const QString& strSection, const QStrin
     return WizStringFromBase64(GetString(strSection, strKey, strDef));
 }
 
-BOOL CWizSettings::SetEncryptedString(const QString& strSection, const QString& strKey, const QString& str)
+bool CWizSettings::SetEncryptedString(const QString& strSection, const QString& strKey, const QString& str)
 {
     return SetString(strSection, strKey, WizStringToBase64(str));
 }

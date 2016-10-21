@@ -28,6 +28,7 @@
 #include "share/wizGlobal.h"
 #include "share/wizDatabaseManager.h"
 #include "share/wizmisc.h"
+#include "share/wizDatabase.h"
 
 #define PREDEFINED_TRASH            QObject::tr("Trash")
 #define PREDEFINED_UNCLASSIFIED     QObject::tr("Unclassified")

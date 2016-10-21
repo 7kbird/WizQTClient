@@ -15,14 +15,14 @@ protected:
     QImage m_img;
     QRect m_arrayImageGrid[9];
     //
-    BOOL Clear();
+    bool Clear();
 public:
-    static BOOL SplitRect(const QRect& rcSrc, QPoint ptTopLeft, QRect* parrayRect, int nArrayCount);
-    BOOL SetImage(const CString& strImageFileName, QPoint ptTopLeft);
+    static bool SplitRect(const QRect& rcSrc, QPoint ptTopLeft, QRect* parrayRect, int nArrayCount);
+    bool SetImage(const CString& strImageFileName, QPoint ptTopLeft);
     //
     void Draw(QPainter* p, QRect rc, int nAlpha) const;
     void DrawBorder(QPainter* p, QRect rc) const;
-    BOOL Valid() const;
+    bool Valid() const;
     //
     QSize actualSize() const { return m_img.size(); }
 };

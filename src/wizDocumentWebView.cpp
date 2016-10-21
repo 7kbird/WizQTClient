@@ -1871,8 +1871,10 @@ void CWizDocumentWebView::saveAsPDF()
     QMarginsF margins(marginLeft, marginTop, marginRight, marginBottom);
     //
     const QPageLayout layout = QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, margins);
-    //
-    page()->printToPdf(strFileName, layout);
+
+#if QT_VERSION >= 0x050700
+    page()->printToPdf(strFileName, layout);    // WARNING: this require Qt 5.7
+#endif
 }
 
 void CWizDocumentWebView::saveAsHtml(const QString& strDirPath)

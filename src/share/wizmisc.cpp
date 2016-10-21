@@ -105,7 +105,7 @@ void WizEnsureFileExists(const QString& strFileName)
     }
 }
 
-BOOL WizDeleteAllFilesInFolder(const CString& strPath)
+bool WizDeleteAllFilesInFolder(const CString& strPath)
 {
     CWizStdStringArray arrayFile;
     ::WizEnumFiles(strPath, "*", arrayFile, EF_INCLUDESUBDIR);
@@ -129,7 +129,7 @@ BOOL WizDeleteAllFilesInFolder(const CString& strPath)
 
 void WizEnumFiles(const QString& path, const QString& strExts, CWizStdStringArray& arrayFiles, UINT uFlags)
 {
-    BOOL bIncludeSubDir = uFlags & EF_INCLUDESUBDIR;
+    bool bIncludeSubDir = uFlags & EF_INCLUDESUBDIR;
 
     QString strPath(path);
     WizPathAddBackslash(strPath);
@@ -162,7 +162,7 @@ void WizEnumFiles(const QString& path, const QString& strExts, CWizStdStringArra
 
 void WizEnumFolders(const QString& path, CWizStdStringArray& arrayFolders, UINT uFlags)
 {
-    BOOL bIncludeSubDir = uFlags & EF_INCLUDESUBDIR;
+    bool bIncludeSubDir = uFlags & EF_INCLUDESUBDIR;
 
     QString strPath(path);
     WizPathAddBackslash(strPath);
@@ -198,7 +198,7 @@ QString WizFolderNameByPath(const QString& strPath)
     return list.at(list.size() - 2);
 }
 
-BOOL WizCopyFile(const CString& strSrcFileName, const CString& strDestFileName, BOOL bFailIfExists)
+bool WizCopyFile(const CString& strSrcFileName, const CString& strDestFileName, bool bFailIfExists)
 {
     QFile fileSrc(strSrcFileName);
     if (!fileSrc.exists())
@@ -430,7 +430,7 @@ COleDateTime WizGetCurrentTime()
     return t;
 }
 
-BOOL WizStringToDateTime(const QString& str, COleDateTime& t, QString& strError)
+bool WizStringToDateTime(const QString& str, COleDateTime& t, QString& strError)
 {
     std::string utf8 = ::WizBSTR2UTF8(str);
     const char* lpsz = utf8.c_str();
@@ -504,7 +504,7 @@ COleDateTime WizStringToDateTime(const CString& str)
 
 
 
-BOOL WizIso8601StringToDateTime(CString str, COleDateTime& t, CString& strError)
+bool WizIso8601StringToDateTime(CString str, COleDateTime& t, CString& strError)
 {
     if (str.length() != 17)
     {
@@ -527,7 +527,7 @@ CString WizDateTimeToIso8601String(const COleDateTime& t)
     return str;
 }
 
-CString WizIntToHexEx(int n, int nWidth, BOOL bWithPrefix /*= FALSE*/)
+CString WizIntToHexEx(int n, int nWidth, bool bWithPrefix /*= FALSE*/)
 {
     CString strFormat = CString(_T("%0")) + WizIntToStr(nWidth) + _T("X");
     //
@@ -809,7 +809,7 @@ const char* strncasestr(const char* str, const char* subStr)
 
     while(*str)
     {
-        if(strncasecmp(str, subStr, len) == 0)
+        if (qstrnicmp(str, subStr, len) == 0)
         {
             return str;
         }
@@ -944,9 +944,9 @@ bool WizXmlAnsiToUnicode(const char* lpszText, QString& strText)
 
 
 template<class T>
-void WizProcessText(char* pBuffer, size_t nBufferLen, BOOL bNoRemoveCr)
+void WizProcessText(char* pBuffer, size_t nBufferLen, bool bNoRemoveCr)
 {
-    BOOL bRemoveCr = !bNoRemoveCr;
+    bool bRemoveCr = !bNoRemoveCr;
     //
     T* pEnd = (T*)(pBuffer + nBufferLen);
     //
@@ -1002,24 +1002,24 @@ bool WizLoadUnicodeTextFromBuffer2(char* pBuffer, size_t nLen, QString& strText,
 {
     ATLASSERT(pBuffer);
     //
-    BOOL bForceHTML		=	(nFlags & WIZ_LTFF_FORCE_HTML)	?	TRUE : FALSE;
-    BOOL bForceUTF8		=	(nFlags & WIZ_LTFF_FORCE_UTF8)	?	TRUE : FALSE;
-    BOOL bForceUTF16	=	(nFlags & WIZ_LTFF_FORCE_UTF16) ?	TRUE : FALSE;
-    BOOL bNoRemoveCr	=	(nFlags & WIZ_LTFF_NO_REMOVE_CR)	?	TRUE : FALSE;
-    BOOL bForceXML		=	(nFlags & WIZ_LTFF_FORCE_XML)	?	TRUE : FALSE;
+    bool bForceHTML		=	(nFlags & WIZ_LTFF_FORCE_HTML)	?	TRUE : FALSE;
+    bool bForceUTF8		=	(nFlags & WIZ_LTFF_FORCE_UTF8)	?	TRUE : FALSE;
+    bool bForceUTF16	=	(nFlags & WIZ_LTFF_FORCE_UTF16) ?	TRUE : FALSE;
+    bool bNoRemoveCr	=	(nFlags & WIZ_LTFF_NO_REMOVE_CR)	?	TRUE : FALSE;
+    bool bForceXML		=	(nFlags & WIZ_LTFF_FORCE_XML)	?	TRUE : FALSE;
     //
     ATLASSERT(!(bForceUTF8 && bForceUTF16));
     //
-    BOOL bRet = FALSE;
+    bool bRet = FALSE;
     try
     {
         //check file type
         BYTE* pMark = (BYTE*)pBuffer;
-        BOOL bUTF16AutoDetected = (pMark[0] == 0xFF && pMark[1] == 0xFE);
-        BOOL bUTF8AutoDetected = (pMark[0] == 0xEF && pMark[1] == 0xBB && pMark[2] == 0xBF);
+        bool bUTF16AutoDetected = (pMark[0] == 0xFF && pMark[1] == 0xFE);
+        bool bUTF8AutoDetected = (pMark[0] == 0xEF && pMark[1] == 0xBB && pMark[2] == 0xBF);
         //
-        BOOL bUTF16 = (nLen >= 2) && (bForceUTF16 || bUTF16AutoDetected);
-        BOOL bUTF8 =  (nLen >= 3) && (bForceUTF8  || bUTF8AutoDetected);
+        bool bUTF16 = (nLen >= 2) && (bForceUTF16 || bUTF16AutoDetected);
+        bool bUTF8 =  (nLen >= 3) && (bForceUTF8  || bUTF8AutoDetected);
         //
         //remove \r \0
         if (bUTF16)
@@ -1082,7 +1082,7 @@ bool WizLoadUnicodeTextFromBuffer2(char* pBuffer, size_t nLen, QString& strText,
     return bRet;
 }
 
-BOOL WizLoadUnicodeTextFromBuffer(const char* pBuffer, size_t nLen, CString& strText, UINT nFlags /* = 0 */, const CString& strFileName /*= ""*/)
+bool WizLoadUnicodeTextFromBuffer(const char* pBuffer, size_t nLen, CString& strText, UINT nFlags /* = 0 */, const CString& strFileName /*= ""*/)
 {
     size_t nNewBufferLen = nLen + 4;
     char * pBufferNew = new char [nNewBufferLen];
@@ -1093,7 +1093,7 @@ BOOL WizLoadUnicodeTextFromBuffer(const char* pBuffer, size_t nLen, CString& str
     //
     memcpy(pBufferNew, pBuffer, nLen);
     //
-    BOOL bRet = WizLoadUnicodeTextFromBuffer2(pBufferNew, nLen, strText, nFlags, strFileName);
+    bool bRet = WizLoadUnicodeTextFromBuffer2(pBufferNew, nLen, strText, nFlags, strFileName);
     //
     delete [] pBufferNew;
     //
@@ -1210,7 +1210,7 @@ bool WizSplitTextToArray(const CString& strText, QChar ch, CWizStdStringArray& a
     return TRUE;
 }
 
-BOOL WizSplitTextToArray(CString strText, const CString& strSplitterText, BOOL bMatchCase, CWizStdStringArray& arrayResult)
+bool WizSplitTextToArray(CString strText, const CString& strSplitterText, bool bMatchCase, CWizStdStringArray& arrayResult)
 {
     QStringList strings = strText.split(strSplitterText, QString::KeepEmptyParts, bMatchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
     arrayResult.assign(strings.begin(), strings.end());
@@ -1317,7 +1317,7 @@ bool WizStringArrayCompareElementDes(const CString& elem1, const CString& elem2)
     return elem1.compare(elem2) > 0;
 }
 
-void WizStringArraySort(CWizStdStringArray& arrayText, BOOL bAscending /*= TRUE*/)
+void WizStringArraySort(CWizStdStringArray& arrayText, bool bAscending /*= TRUE*/)
 {
     if (bAscending)
     {
@@ -1353,7 +1353,7 @@ void WizStringArrayRemoveMultiElementNoCase(CWizStdStringArray& arrayText)
     }
 }
 
-BOOL WizStringSimpleSplit(const CString& str, char ch, CString& strLeft, CString& strRight)
+bool WizStringSimpleSplit(const CString& str, char ch, CString& strLeft, CString& strRight)
 {
     int nPos = str.Find(ch);
     if (-1 == nPos)
@@ -1548,7 +1548,7 @@ BYTE* CWizBufferAlloc::GetBuffer()
     return m_pBuffer;
 }
 
-BOOL CWizBufferAlloc::SetNewSize(int nNewSize)
+bool CWizBufferAlloc::SetNewSize(int nNewSize)
 {
     if (!m_pBuffer)
     {
@@ -1570,7 +1570,7 @@ BOOL CWizBufferAlloc::SetNewSize(int nNewSize)
     return !m_pBuffer;
 }
 
-BOOL WizBase64Encode(const QByteArray& arrayData, QString& str)
+bool WizBase64Encode(const QByteArray& arrayData, QString& str)
 {
     const QByteArray base64 = arrayData.toBase64();
     str = base64.constData();
@@ -1936,7 +1936,7 @@ void WizDeleteFile(const CString& strFileName)
 
 #define WIZ_INVALID_CHAR_OF_FILE_NAME		"/\"?:*|<>\r\n\t,%\'\\"
 
-BOOL WizIsValidFileNameNoPath(const CString& strFileName)
+bool WizIsValidFileNameNoPath(const CString& strFileName)
 {
     if (strFileName.GetLength() >= MAX_PATH)
         return FALSE;

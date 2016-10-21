@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QMutex>
 #include <deque>
+#include "share/wizDatabase.h"
 
 class QString;
 
@@ -15,7 +16,6 @@ struct WIZDOCUMENTDATA;
 struct WIZDOCUMENTATTACHMENTDATA;
 struct WIZGROUPDATA;
 struct WIZMESSAGEDATA;
-class CWizDatabase;
 struct WIZDATABASEINFO;
 
 typedef std::deque<WIZGROUPDATA> CWizGroupDataArray;

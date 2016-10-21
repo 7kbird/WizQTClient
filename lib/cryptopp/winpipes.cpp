@@ -193,7 +193,7 @@ unsigned int WindowsPipeSender::GetSendResult()
 	if (m_resultPending)
 	{
 		HANDLE h = GetHandle();
-		BOOL result = GetOverlappedResult(h, &m_overlapped, &m_lastResult, false);
+		bool result = GetOverlappedResult(h, &m_overlapped, &m_lastResult, false);
 		CheckAndHandleError("GetOverlappedResult", result);
 		m_resultPending = false;
 	}

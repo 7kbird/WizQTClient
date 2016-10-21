@@ -263,7 +263,7 @@ WIZTAGDATA::WIZTAGDATA(const WIZTAGDATA& data)
     nPostion = data.nPostion;
 }
 
-BOOL WIZTAGDATA::EqualForSync(const WIZTAGDATA& data) const
+bool WIZTAGDATA::EqualForSync(const WIZTAGDATA& data) const
 {
     ATLASSERT(strGUID == data.strGUID);
     return strName == data.strName
@@ -271,7 +271,7 @@ BOOL WIZTAGDATA::EqualForSync(const WIZTAGDATA& data) const
         && strParentGUID == data.strParentGUID;
 }
 
-BOOL WIZTAGDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+bool WIZTAGDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
 {
     return data.GetStr(_T("tag_guid"), strGUID)
             && data.GetStr(_T("tag_group_guid"), strParentGUID)
@@ -281,7 +281,7 @@ BOOL WIZTAGDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
             && data.GetInt64(_T("version"), nVersion);
 }
 
-BOOL WIZTAGDATA::SaveToXmlRpc(CWizXmlRpcStructValue& data) const
+bool WIZTAGDATA::SaveToXmlRpc(CWizXmlRpcStructValue& data) const
 {
     data.AddString(_T("tag_guid"), strGUID);
     data.AddString(_T("tag_group_guid"), strParentGUID);
@@ -311,7 +311,7 @@ WIZSTYLEDATA::WIZSTYLEDATA()
     nVersion = -1;
 }
 
-BOOL WIZSTYLEDATA::EqualForSync(const WIZSTYLEDATA& data) const
+bool WIZSTYLEDATA::EqualForSync(const WIZSTYLEDATA& data) const
 {
     ATLASSERT(strGUID == data.strGUID);
     return strName == data.strName
@@ -322,7 +322,7 @@ BOOL WIZSTYLEDATA::EqualForSync(const WIZSTYLEDATA& data) const
             && nFlagIndex == data.nFlagIndex;
 }
 
-BOOL WIZSTYLEDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+bool WIZSTYLEDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
 {
     data.GetStr(_T("style_description"), strDescription);
 
@@ -336,7 +336,7 @@ BOOL WIZSTYLEDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
         && data.GetInt64(_T("version"), nVersion);
 }
 
-BOOL WIZSTYLEDATA::SaveToXmlRpc(CWizXmlRpcStructValue& data) const
+bool WIZSTYLEDATA::SaveToXmlRpc(CWizXmlRpcStructValue& data) const
 {
     data.AddString(_T("style_description"), strDescription);;
 
@@ -404,14 +404,14 @@ WIZDOCUMENTATTACHMENTDATA::WIZDOCUMENTATTACHMENTDATA()
 {
 }
 
-BOOL WIZDOCUMENTATTACHMENTDATA::EqualForSync(const WIZDOCUMENTATTACHMENTDATA& data) const
+bool WIZDOCUMENTATTACHMENTDATA::EqualForSync(const WIZDOCUMENTATTACHMENTDATA& data) const
 {
     ATLASSERT(strGUID == data.strGUID);
     return strInfoMD5 == data.strInfoMD5
             && strDataMD5 == data.strDataMD5;
 }
 
-BOOL WIZDOCUMENTATTACHMENTDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+bool WIZDOCUMENTATTACHMENTDATA::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
 {
     data.GetStr("attachment_guid", strGUID);
     data.GetStr("attachment_document_guid", strDocumentGUID);
@@ -488,7 +488,7 @@ WIZDOCUMENTDATAEX& WIZDOCUMENTDATAEX::operator= (const WIZDOCUMENTDATAEX& right)
     return *this;
 }
 
-BOOL WIZDOCUMENTDATAEX::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
+bool WIZDOCUMENTDATAEX::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
 {
     nInfoChanged = 0;
     nDataChanged = 0;
@@ -805,7 +805,7 @@ bool WIZKVRETURN::LoadFromXmlRpc(CWizXmlRpcStructValue& data)
 }
 
 
-BOOL WIZUSERMESSAGEDATA::LoadFromXmlRpc(CWizXmlRpcStructValue &data)
+bool WIZUSERMESSAGEDATA::LoadFromXmlRpc(CWizXmlRpcStructValue &data)
 {
     data.GetInt64(_T("id"), nMessageID);
     data.GetStr(_T("biz_guid"), strBizGUID);

@@ -594,7 +594,7 @@ CString WizMd5StringNoSpaceJava(const unsigned char* pBuffer, DWORD dwLen)
     return str;
 }
 
-BOOL WizMd5(const QByteArray& arr, BYTE* pResult)
+bool WizMd5(const QByteArray& arr, BYTE* pResult)
 {
     ::WizMd5((const unsigned char*)(arr.constData()), arr.length(), pResult);
     return TRUE;
@@ -634,7 +634,7 @@ CString WizMd5FileStringNoSpaceJava(const CString& strFileName)
     return ret;
 }
 
-BOOL WizMd5File(const CString& strFileName, BYTE* pResult)
+bool WizMd5File(const CString& strFileName, BYTE* pResult)
 {
     qint64 len = Utils::Misc::getFileSize(strFileName);
     if (len <= 0)
@@ -651,7 +651,7 @@ BOOL WizMd5File(const CString& strFileName, BYTE* pResult)
     //
     const UINT BUFFER_SIZE = 1024;
     //
-    BOOL bRet = FALSE;
+    bool bRet = FALSE;
     //
     BYTE* pBuffer = NULL;
     try

@@ -10,7 +10,7 @@
 #include "wizsettings.h"
 #include "wiznotestyle.h"
 
-BOOL CWizSkin9GridImage::Clear()
+bool CWizSkin9GridImage::Clear()
 {
     if (!m_img.isNull())
     {
@@ -19,7 +19,7 @@ BOOL CWizSkin9GridImage::Clear()
     return TRUE;
 }
 
-BOOL CWizSkin9GridImage::SplitRect(const QRect& rcSrc, QPoint ptTopLeft, QRect* parrayRect, int nArrayCount)
+bool CWizSkin9GridImage::SplitRect(const QRect& rcSrc, QPoint ptTopLeft, QRect* parrayRect, int nArrayCount)
 {
     ATLASSERT(nArrayCount == 9);
     //
@@ -62,7 +62,7 @@ BOOL CWizSkin9GridImage::SplitRect(const QRect& rcSrc, QPoint ptTopLeft, QRect* 
     return TRUE;
 }
 
-BOOL CWizSkin9GridImage::SetImage(const CString& strImageFileName, QPoint ptTopLeft)
+bool CWizSkin9GridImage::SetImage(const CString& strImageFileName, QPoint ptTopLeft)
 {
     Clear();
     //
@@ -75,7 +75,7 @@ BOOL CWizSkin9GridImage::SetImage(const CString& strImageFileName, QPoint ptTopL
     return SplitRect(QRect(0, 0, nImageWidth, nImageHeight), ptTopLeft, m_arrayImageGrid, 9);
 }
 
-BOOL CWizSkin9GridImage::Valid() const
+bool CWizSkin9GridImage::Valid() const
 {
     return m_img.width() > 0 && m_img.height() > 0;
 }

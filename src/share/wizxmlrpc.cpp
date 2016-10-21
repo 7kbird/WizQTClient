@@ -806,7 +806,7 @@ bool CWizXmlRpcStructValue::GetStringArray(const QString& strName, CWizStdString
 
 
 
-BOOL CWizXmlRpcStructValue::ToStringMap(std::map<QString, QString>& ret) const
+bool CWizXmlRpcStructValue::ToStringMap(std::map<QString, QString>& ret) const
 {
     for (std::map<QString, CWizXmlRpcValue*>::const_iterator it = m_map.begin();
         it != m_map.end();
@@ -841,8 +841,8 @@ int CWizXmlRpcFaultValue::GetFaultCode() const
 {
 	int nCode = 0;
 	m_val.GetInt(_T("faultCode"), nCode);
-    /* 此处不能返回Wiz服务器定义的 301,因为QT将 301 定义为连接协议无效.现在需要通过错误代码判断连接状态.
-    NOTE：如果Wiz服务器错误代码变更,或者QT错误代码变更,需要修改此处*/
+    // 此处不能返回Wiz服务器定义的 301,因为QT将 301 定义为连接协议无效.现在需要通过错误代码判断连接状态.
+    // NOTE：如果Wiz服务器错误代码变更,或者QT错误代码变更,需要修改此处
     if (301 == nCode) {
         return WIZKM_XMLRPC_ERROR_INVALID_TOKEN;
     } else if (302 == nCode) {
@@ -880,7 +880,7 @@ CWizXmlRpcResult::~CWizXmlRpcResult()
         m_pResult = NULL;
     }
 }
-//
+
 void CWizXmlRpcResult::SetResult(const QString& strMethodName, CWizXmlRpcValue* pRet)
 {
     m_pResult = pRet;
@@ -904,19 +904,19 @@ void CWizXmlRpcResult::SetResult(const QString& strMethodName, CWizXmlRpcValue* 
     }
 }
 //
-BOOL CWizXmlRpcResult::IsXmlRpcSucceeded() const
+bool CWizXmlRpcResult::IsXmlRpcSucceeded() const
 {
     return m_bXmlRpcSucceeded;
 }
-BOOL CWizXmlRpcResult::IsFault() const
+bool CWizXmlRpcResult::IsFault() const
 {
     return m_bFault;
 }
-BOOL CWizXmlRpcResult::IsNoError() const
+bool CWizXmlRpcResult::IsNoError() const
 {
     return m_bXmlRpcSucceeded && !m_bFault && m_pResult;
 }
-BOOL CWizXmlRpcResult::GetString(QString& str) const
+bool CWizXmlRpcResult::GetString(QString& str) const
 {
     if (CWizXmlRpcStringValue* pValue = GetResultValue<CWizXmlRpcStringValue>())
     {
@@ -926,13 +926,12 @@ BOOL CWizXmlRpcResult::GetString(QString& str) const
     //
     return FALSE;
 }
-BOOL CWizXmlRpcResult::GetBool(BOOL& b) const
+bool CWizXmlRpcResult::GetBool(bool& b) const
 {
     if (CWizXmlRpcBoolValue* pValue = GetResultValue<CWizXmlRpcBoolValue>())
     {
         b = *pValue;
         return TRUE;
     }
-    //
     return FALSE;
 }

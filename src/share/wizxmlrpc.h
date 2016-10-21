@@ -375,17 +375,17 @@ class CWizXmlRpcResult
     CWizXmlRpcValue* m_pResult;
     int m_nFaultCode;
     QString m_strFaultString;
-    BOOL m_bXmlRpcSucceeded;
-    BOOL m_bFault;
+    bool m_bXmlRpcSucceeded;
+    bool m_bFault;
 public:
     CWizXmlRpcResult();
     ~CWizXmlRpcResult();
 public:
     void SetResult(const QString& strMethodName, CWizXmlRpcValue* pRet);
     //
-    BOOL IsXmlRpcSucceeded() const;
-    BOOL IsFault() const;
-    BOOL IsNoError() const;
+    bool IsXmlRpcSucceeded() const;
+    bool IsFault() const;
+    bool IsNoError() const;
     //
     template <class T>
     T* GetResultValue() const
@@ -393,8 +393,8 @@ public:
         return dynamic_cast<T*>(m_pResult);
     }
     //
-    BOOL GetString(QString& str) const;
-    BOOL GetBool(BOOL& b) const;
+    bool GetString(QString& str) const;
+    bool GetBool(bool& b) const;
 };
 
 #endif //WIZXMLRPC_H

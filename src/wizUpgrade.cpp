@@ -15,6 +15,14 @@
 #define strUpgradeUrlParam "/download?product=wiznote&client=linux-x86"
 #endif // __amd64
 
+#elif defined(Q_OS_WIN)
+
+#ifdef Q_OS_WIN64
+#define strUpgradeUrlParam "/download?product=wiznote&client=win-x64"
+#else
+#define strUpgradeUrlParam "/download?product=wiznote&client=win-32"
+#endif // Q_OS_WIN64
+
 #endif // Q_OS_MAC
 
 CWizUpgradeChecker::CWizUpgradeChecker(QObject *parent) :

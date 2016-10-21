@@ -864,7 +864,7 @@ bool UploadList(const WIZKBINFO& kbInfo, IWizKMSyncEvents* pEvents, IWizSyncable
             pEvents->OnUploadDocument(local.strGUID, FALSE);
         }
         //
-        BOOL bUploaded = TRUE;
+        bool bUploaded = TRUE;
         if (!UploadObject<TData>(kbInfo, size, start, total, index, local, pEvents, pDatabase, server, strObjectType, progress))
         {
             bUploaded = FALSE;

@@ -8,7 +8,7 @@
 #if defined(Q_OS_WIN)
 #include <QLibrary>
 #include <qt_windows.h>
-typedef BOOL(WINAPI*PProcessIdToSessionId)(DWORD,DWORD*);
+typedef bool(WINAPI*PProcessIdToSessionId)(DWORD,DWORD*);
 static PProcessIdToSessionId pProcessIdToSessionId = 0;
 #endif
 
@@ -54,16 +54,15 @@ CWizLocalPeer::CWizLocalPeer(QObject *parent, const QString &appId)
     QString lockName = QDir(QDir::tempPath()).absolutePath()
                        + QLatin1Char('/') + socketName
                        + QLatin1String("-lockfile");
-    lockFile.setFileName(lockName);
-    lockFile.open(QIODevice::ReadWrite);
+    lockFile.reset(new QLockFile(lockName));
 }
 
 bool CWizLocalPeer::isClient()
 {
-    if (lockFile.isLocked())
+    if (lockFile->isLocked())
         return false;
 
-    if (!lockFile.lock(CWizLockedFile::WriteLock, false))
+    if (!lockFile->tryLock())
         return true;
 
     if (!QLocalServer::removeServer(socketName))

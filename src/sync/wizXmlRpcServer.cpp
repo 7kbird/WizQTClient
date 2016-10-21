@@ -105,7 +105,7 @@ bool CWizXmlRpcServerBase::xmlRpcCall(const QString& strMethodName, CWizXmlRpcRe
     return true;
 }
 
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     CWizXmlRpcResult ret;
     if (!xmlRpcCall(strMethodName, ret, pParam1, pParam2, pParam3, pParam4))
@@ -119,7 +119,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcValue* p
 }
 
 
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcResult& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcResult& ret, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     if (!xmlRpcCall(strMethodName, ret, pParam1, pParam2, pParam3, pParam4))
     {
@@ -131,7 +131,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, CWizXmlRpcResult& 
     return TRUE;
 }
 
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, std::map<QString, QString>& mapRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, std::map<QString, QString>& mapRet, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     CWizXmlRpcResult ret;
     if (!Call(strMethodName, ret, pParam1, pParam2, pParam3, pParam4))
@@ -147,7 +147,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, std::map<QString, 
     return pValue->ToStringMap(mapRet);
 }
 
-BOOL CWizXmlRpcServerBase::GetReturnValueInStringMap(const QString& strMethodName, std::map<QString, QString>& mapRet, const QString& strName, QString& strValue)
+bool CWizXmlRpcServerBase::GetReturnValueInStringMap(const QString& strMethodName, std::map<QString, QString>& mapRet, const QString& strName, QString& strValue)
 {
     std::map<QString, QString>::const_iterator it = mapRet.find(strName);
     if (it == mapRet.end())
@@ -162,7 +162,7 @@ BOOL CWizXmlRpcServerBase::GetReturnValueInStringMap(const QString& strMethodNam
 }
 
 
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     std::map<QString, QString> mapRet;
     if (!Call(strMethodName, mapRet, pParam1, pParam2, pParam3, pParam4))
@@ -170,7 +170,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& str
     //
     return GetReturnValueInStringMap(strMethodName, mapRet, strRetName1, strRetValue1);
 }
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     std::map<QString, QString> mapRet;
     if (!Call(strMethodName, mapRet, pParam1, pParam2, pParam3, pParam4))
@@ -179,7 +179,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& str
     return GetReturnValueInStringMap(strMethodName, mapRet, strRetName1, strRetValue1)
         && GetReturnValueInStringMap(strMethodName, mapRet, strRetName2, strRetValue2);
 }
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     std::map<QString, QString> mapRet;
     if (!Call(strMethodName, mapRet, pParam1, pParam2, pParam3, pParam4))
@@ -189,7 +189,7 @@ BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& str
         && GetReturnValueInStringMap(strMethodName, mapRet, strRetName2, strRetValue2)
         && GetReturnValueInStringMap(strMethodName, mapRet, strRetName3, strRetValue3);
 }
-BOOL CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, const QString& strRetName4, QString& strRetValue4, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
+bool CWizXmlRpcServerBase::Call(const QString& strMethodName, const QString& strRetName1, QString& strRetValue1, const QString& strRetName2, QString& strRetValue2, const QString& strRetName3, QString& strRetValue3, const QString& strRetName4, QString& strRetValue4, CWizXmlRpcValue* pParam1, CWizXmlRpcValue* pParam2 /*= NULL*/, CWizXmlRpcValue* pParam3 /*= NULL*/, CWizXmlRpcValue* pParam4 /*= NULL*/)
 {
     std::map<QString, QString> mapRet;
     if (!Call(strMethodName, mapRet, pParam1, pParam2, pParam3, pParam4))

@@ -15,21 +15,12 @@
 #include <QDateTime>
 #include <QSharedPointer>
 
-#ifndef BOOL
-    #define BOOL bool
-#endif
 
-#ifndef TRUE
-    #define TRUE    true
-#endif
 
-#ifndef FALSE
-    #define FALSE  false
-#endif
-
-#define COLORREF    int
+#ifdef Q_OS_WIN
+#include <windows.h>
 #define _T(x)       x
-
+#else
 #ifdef Q_OS_LINUX
 typedef long long __int64;
 #endif
@@ -43,6 +34,22 @@ typedef unsigned short  WORD;
 typedef unsigned int   DWORD;
 typedef unsigned int    UINT;
 typedef long HRESULT;
+
+#ifndef BOOL
+#define bool bool
+#endif
+
+#ifndef TRUE
+#define TRUE    true
+#endif
+
+#ifndef FALSE
+#define FALSE  false
+#endif
+
+
+#define COLORREF    int
+#define _T(x)       x
 
 #define SUCCEEDED(hr) (((HRESULT)(hr)) >= 0)
 #define FAILED(hr) (((HRESULT)(hr)) < 0)
@@ -66,6 +73,8 @@ typedef long HRESULT;
 #define GetGValue(rgb)      (LOBYTE(((WORD)(rgb)) >> 8))
 #define GetBValue(rgb)      (LOBYTE((rgb)>>16))
 
+#endif  // Q_OS_WIN
+
 #define ATLASSERT(x)        assert(x)
 
 class CString: public QString
@@ -78,6 +87,7 @@ public:
     CString(int size, QChar c) :QString(size, c) {}
     inline CString(const QLatin1String &latin1) : QString(latin1) {}
     inline CString(const QString &src) : QString(src) {}
+    inline CString(const wchar_t* src) : QString(QString::fromWCharArray(src)) {}
     //inline CString(const CString &src) : QString(src) {}
 #ifndef QT_NO_CAST_FROM_ASCII
     CString(const char *ch) :QString(ch) {}
@@ -147,7 +157,9 @@ public:
     COleDateTime &operator=(const COleDateTime &other);
 };
 
+#ifndef Q_OS_WIN
 int GetTickCount();
+#endif  // Q_OS_WIN
 bool PathFileExists(const CString& strPath);
 bool DeleteFile(const CString& strFileName);
 

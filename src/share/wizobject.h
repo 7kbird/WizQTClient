@@ -250,9 +250,9 @@ struct WIZTAGDATA : public WIZOBJECTBASE
 
     friend bool operator< (const WIZTAGDATA& data1, const WIZTAGDATA& data2) throw();
 
-    BOOL EqualForSync(const WIZTAGDATA& data) const;
-    virtual BOOL LoadFromXmlRpc(CWizXmlRpcStructValue& data);
-    virtual BOOL SaveToXmlRpc(CWizXmlRpcStructValue& data) const;
+    bool EqualForSync(const WIZTAGDATA& data) const;
+    virtual bool LoadFromXmlRpc(CWizXmlRpcStructValue& data);
+    virtual bool SaveToXmlRpc(CWizXmlRpcStructValue& data) const;
 
     static CString VersionName() { return CString(_T("tag_version")); }
     static CString ObjectName() { return CString(_T("tag")); }
@@ -401,8 +401,8 @@ struct WIZDOCUMENTATTACHMENTDATA : public WIZOBJECTBASE
     virtual ~WIZDOCUMENTATTACHMENTDATA();
 
     friend bool operator< (const WIZDOCUMENTATTACHMENTDATA& data1,const WIZDOCUMENTATTACHMENTDATA& data2 ) throw();
-    BOOL EqualForSync(const WIZDOCUMENTATTACHMENTDATA& data) const;
-    virtual BOOL LoadFromXmlRpc(CWizXmlRpcStructValue& data);
+    bool EqualForSync(const WIZDOCUMENTATTACHMENTDATA& data) const;
+    virtual bool LoadFromXmlRpc(CWizXmlRpcStructValue& data);
 
     static QString VersionName() { return "attachment_version"; }
     static QString ObjectName() { return "attachment"; }
@@ -430,7 +430,7 @@ struct WIZDOCUMENTATTACHMENTDATAEX : public WIZDOCUMENTATTACHMENTDATA
     WIZDOCUMENTATTACHMENTDATAEX& operator= (const WIZDOCUMENTATTACHMENTDATAEX& right);
 
     QByteArray arrayData;
-    BOOL bSkipped;
+    bool bSkipped;
     int nObjectPart;
 };
 

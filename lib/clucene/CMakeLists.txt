@@ -136,6 +136,7 @@ IF ( CMAKE_COMPILER_IS_GNUCC )
    ENDIF ( ENABLE_ANSI_MODE )
 ENDIF(CMAKE_COMPILER_IS_GNUCC) 
 
+add_definitions(-DUNICODE -D_UNICODE)
 
 #Single output directory for building all executables and libraries.
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin CACHE PATH "Executable Output Directory" FORCE)

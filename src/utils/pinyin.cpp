@@ -8,12 +8,16 @@
 #include "../share/wizmisc.h"
 //#pragma warning( disable: 4996)
 
-typedef char TCHAR;
+//#ifdef TCHAR
+//#undef TCHAR
+//#endif // TCHAR
+//#define TCHAR char
+
 typedef wchar_t WCHAR;
 typedef const TCHAR* LPCTSTR;
 typedef const WCHAR* LPCWSTR;
 
-#define BOOL bool
+#define bool bool
 #define FLASE false
 #define TRUE true
 
@@ -64,14 +68,14 @@ public:
 		//
 		return it->second.pinyin;
 	}
-	BOOL GetPinYin(WCHAR ch, bool firstLetterOnly, CWizStdStringArray& arrayText)
+	bool GetPinYin(WCHAR ch, bool firstLetterOnly, CWizStdStringArray& arrayText)
 	{
 		Init();
 		//
 		std::multimap<WCHAR, WIZCHINESEWORDPINYINDATA>::const_iterator itLower = m_data.lower_bound(ch);
 		std::multimap<WCHAR, WIZCHINESEWORDPINYINDATA>::const_iterator itUpper = m_data.upper_bound(ch);
 		//
-		BOOL bFound = FALSE;
+		bool bFound = FALSE;
 		for (std::multimap<WCHAR, WIZCHINESEWORDPINYINDATA>::const_iterator it = itLower;
 			it != itUpper;
 			it++)
@@ -112,7 +116,7 @@ void MultiplyArray(const CWizStdStringArray& arr1,  const CWizStdStringArray& ar
 				it2 != arr2.end();
 				it2++)
 			{
-				CString strRet = *it1 + lpszSplitter + *it2;
+                CString strRet = *it1 + CString(lpszSplitter) + *it2;
 				arrayRet.push_back(strRet);
 			}
 		}
@@ -215,14 +219,14 @@ extern "C" STDMETHODIMP WizToolsChinese2PinYinEx(LPCWSTR lpszText, UINT flags, L
 
 STDMETHODIMP WizToolsChinese2PinYin(LPCWSTR lpszText, UINT flags, QString& pbstrTextResult)
 {
-	return WizToolsChinese2PinYinEx(lpszText, flags, _T(","), pbstrTextResult);
+	return WizToolsChinese2PinYinEx(lpszText, flags, L",", pbstrTextResult);
 }
 
 int chinese2pinyin(const QString& strChinese, QString& strPinYin, UINT flags)
 {
-    wchar_t str[strChinese.size()];
-    strChinese.toWCharArray(str);
-    return WizToolsChinese2PinYin(str, flags, strPinYin);
+    // wchar_t str[strChinese.size()];
+    // strChinese.toWCharArray(str);
+    return WizToolsChinese2PinYin(strChinese.toStdWString().data(), flags, strPinYin);
 }
 
 void TestPinYin()
@@ -233,7 +237,7 @@ void TestPinYin()
 	//
 	//
     //CComBSTR bstrRet;
-    WizToolsChinese2PinYinEx(str, WIZ_C2P_POLYPHONE | WIZ_C2P_FIRST_LETTER_ONLY, _T(""), strRet);
+    WizToolsChinese2PinYinEx(str, WIZ_C2P_POLYPHONE | WIZ_C2P_FIRST_LETTER_ONLY, L"", strRet);
     qDebug() << strRet;
 	//
     //WizMessageBox(CString(bstrRet));

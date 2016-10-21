@@ -114,7 +114,7 @@ set(wiznote_SOURCES
     share/wizUDPClient.cpp
     share/wizMessageBox.cpp
     share/wizFileMonitor.cpp
-    share/wizLockedFile.cpp
+    #share/wizLockedFile.cpp
     share/wizLocalPeer.cpp
     share/wizSingleApplication.cpp
     #share/wizRtfReader.cpp
@@ -332,7 +332,7 @@ set(wiznote_HEADERS
     wizDocTemplateDialog.h
     wizMobileFileReceiver.h
     widgets/wizFramelessWebDialog.h
-    share/wizLockedFile.h
+    #share/wizLockedFile.h
     share/wizLocalPeer.h
     share/wizSingleApplication.h
     #share/wizRtfReader.h
@@ -476,8 +476,7 @@ if(UNIX)
 
     elseif(NOT APPLE)
         add_executable(WizNote WIN32 ${wiznote_SOURCES} ${wiznote_HEADERS} ${wiznote_FORM_HEADERS} ${wiznote_QM} ${wiznote_RC})
-        set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC_MOC_OPTIONS "-DQ_OS_LINUX")
-
+        
         install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
         install(DIRECTORY ${CMAKE_SOURCE_DIR}/share/ DESTINATION share/wiznote PATTERN ".DS_Store" EXCLUDE)
         install(FILES ${wiznote_QM} DESTINATION share/wiznote/locales)
@@ -498,6 +497,13 @@ if(UNIX)
         endforeach()
     endif()
 elseif(WIN32)
+    if(TARGET zlib) # FIXME: wizzip.cpp require `quazip.h` and it depends on zlib.h
+      include_directories(${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
+    else()
+      find_package(ZLIB)
+      include_directories(${ZLIB_INCLUDE_DIR})
+    endif()
+    add_definitions(-DQUAZIP_STATIC  -DMAKE_CLUCENE_SHARED_LIB -DMAKE_CLUCENE_CORE_LIB -DUNICODE -D_UNICODE)
     add_executable(WizNote ${wiznote_SOURCES} ${wiznote_HEADERS} ${wiznote_FORM_HEADERS} ${wiznote_QM} ${wiznote_RC})
     set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC_MOC_OPTIONS "-DQ_OS_LINUX")
 
@@ -571,9 +577,8 @@ if(APPLE)
             ${CMAKE_DL_LIBS}
         )
     endif(APPSTORE_BUILD)
-else(APPLE) #linux
+else(APPLE) #linux & Windows
     target_link_libraries(${PROJECT_NAME}
-        X11
         quazip
         cryptlib
         clucene-core-static
@@ -582,4 +587,7 @@ else(APPLE) #linux
         Qt5::WebEngineWidgets
         ${CMAKE_DL_LIBS}
     )
+    if(UNIX)
+      target_link_libraries(${PROJECT_NAME} X11)
+    endif()
 endif(APPLE)

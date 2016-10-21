@@ -3693,7 +3693,7 @@ void MainWindow::initTrayIcon(QSystemTrayIcon* trayIcon)
 #endif
 }
 
-#ifdef Q_OS_LINUX
+#ifndef Q_OS_MAC
 void MainWindow::setWindowStyleForLinux(bool bUseSystemStyle)
 {
     if (bUseSystemStyle)

@@ -32,18 +32,18 @@ public:
     void GetKeys(const QString& strSection, CWizStdStringArray& arrayAction);
 
     QString GetString(const QString& strSection, const QString& strKey, const QString& strDef = "");
-    BOOL SetString(const QString& strSection, const QString& strKey, const QString& str);
+    bool SetString(const QString& strSection, const QString& strKey, const QString& str);
 
     int GetInt(const QString& strSection, const QString& strKey, int nDef = 0);
-    BOOL SetInt(const QString& strSection, const QString& strKey, int val);
+    bool SetInt(const QString& strSection, const QString& strKey, int val);
 
-    BOOL GetBool(const QString& strSection, const QString& strKey, bool def = false);
-    BOOL SetBool(const QString& strSection, const QString& strKey, bool def);
+    bool GetBool(const QString& strSection, const QString& strKey, bool def = false);
+    bool SetBool(const QString& strSection, const QString& strKey, bool def);
 
     QColor GetColor(const QString& strSection, const QString& strKey, QColor defColor = "#FFFFFF");
 
     QString GetEncryptedString(const QString& strSection, const QString& strKey, const QString& strDef = "");
-    BOOL SetEncryptedString(const QString& strSection, const QString& strKey, const QString& str);
+    bool SetEncryptedString(const QString& strSection, const QString& strKey, const QString& str);
 
     // proxy settings
     QString GetProxyHost();
