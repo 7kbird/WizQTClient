@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QDebug>
+#include <QStandardPaths>
 
 namespace Utils {
 
@@ -23,7 +24,7 @@ QString PathResolve::resourcesPath()
     QString strPath = dir.path();
     addBackslash(strPath);
     return strPath;
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
     QDir dir(appPath());
     dir.cdUp();
     dir.cd("share/wiznote");
@@ -108,6 +109,8 @@ QString PathResolve::dataStorePath()
     #else
         strPath += "/.wiznote/";
     #endif
+#elif defined(Q_OS_WIN)
+    strPath = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + "/";
 #else
     strPath += "/.wiznote/";
 #endif

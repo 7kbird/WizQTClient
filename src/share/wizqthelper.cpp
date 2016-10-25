@@ -3,6 +3,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QApplication>
+#include <QWidget>
 
 
 bool PathFileExists(const CString& strPath)
@@ -606,8 +607,19 @@ QList<WizWindowInfo> WizGetActiveWindows()
 
 QList<WizWindowInfo> WizGetActiveWindows()
 {
-    linux_x11 x11;
-    return x11.getActiveWindows();
+    QList<WizWindowInfo> res;
+    foreach(QWidget *widget, QApplication::topLevelWidgets()) {
+        if (widget->isActiveWindow()) {
+            WizWindowInfo info;
+            info.pid = QCoreApplication::applicationPid();
+            info.processName = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
+            info.windowTitle = widget->windowTitle();
+            res.append(info);
+            break;
+        }
+    }
+
+    return res;
 }
 
 #endif

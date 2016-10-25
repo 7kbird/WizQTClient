@@ -352,7 +352,7 @@ QByteArray CWizAnalyzer::constructUploadData(IWizSyncableDatabase* db)
 
     for (int i = 0; i < firstActionMap.count(); i++)
     {
-        const QByteArray& baKey = firstActionMap.keys().at(i);
+        const QByteArray baKey = firstActionMap.keys().at(i);
         const QByteArray& baValue = firstActionMap[baKey];
         rapidjson::Value fistAction(baValue.constData(), baValue.size());
         rapidjson::Value vKey(baKey.constData(), baKey.size());
